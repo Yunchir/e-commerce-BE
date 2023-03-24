@@ -1,21 +1,42 @@
 import express from "express";
+import cloudinary from "../config/cloudinary-config.js";
 import multerHandler from "../multer/multer-handler.js";
+import { addProduct, getProduct } from "../service/product-service.js";
 
-const productRouter = express.Router();
+const prodRouter = express.Router();
 
-productRouter.post(
-  "/addProduct",
-  multerHandler.single(file),
+prodRouter.get("/products", async (req, res) => {
+  console.log("product GET huselt");
+  const result = await getProduct();
+  try {
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send({ error: "not found" });
+  }
+});
+
+prodRouter.delete("/delete", () => {});
+
+prodRouter.post(
+  "/products/add",
+  multerHandler.single("file"),
   async (req, res) => {
-    const { secure_url } = await uploadCloud.uploader.upload(req.file.path, {
+    console.log("post request", req.body.details);
+    console.log("post file", req.file);
+    const { secure_url } = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "product",
     });
-    const newProduct = {
+    const newproduct = {
       image: secure_url,
       ...JSON.parse(req.body.details),
     };
-    console.log("newProduct: ", newProduct);
+    const result = await addProduct(newproduct);
+    try {
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).send({ error: "not working" });
+    }
   }
 );
 
-export default productRouter;
+export default prodRouter;

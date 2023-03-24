@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 mongoose
   .connect(
-    "mongodb+srv://yunchir:89545650Yu@cluster0.gqhbgdd.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://yunchir:89545650@cluster0.gqhbgdd.mongodb.net/eCommerce"
   )
   .then(() => console.log("connect"));
 

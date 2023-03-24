@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 let productSchema = new mongoose.Schema(
   {
     name: String,
@@ -5,15 +7,15 @@ let productSchema = new mongoose.Schema(
     sale: Number,
     price: Number,
     stock: Number,
-    discription: String,
+    description: String,
     catecory: String,
     image: String,
   },
   {
-    collection: "product",
+    collection: "products",
   }
 );
 
-const Product = mongoose.model("image", productSchema, "product");
+const Product = mongoose.model("product", productSchema, "products");
 
 export default Product;
