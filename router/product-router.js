@@ -15,7 +15,7 @@ prodRouter.get("/products", async (req, res) => {
   }
 });
 
-prodRouter.delete("/delete", () => {});
+// prodRouter.delete("/delete", () => {});
 
 prodRouter.post(
   "/products/add",
